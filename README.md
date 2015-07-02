@@ -1,0 +1,2 @@
+# mysql_create_table_to_csv
+将mysql create table得到的数据转换为csv格式
