@@ -55,6 +55,7 @@ def praseTableInfo(line,tableName):
     row.append(praseTableComment(line));
     return row;
 
+#解析单行属性
 def praseKeyInfo(line):
     row = list();
     #Primary Key
@@ -81,6 +82,7 @@ def praseKeyInfo(line):
     
     return row;
 
+#解析属性区域
 def praseAttr(line):
     row = list();
     
@@ -110,6 +112,7 @@ def praseAttr(line):
         
     #print attrType;
 
+#解析create Table 语句
 def PraseCreateSql(sql, tableName):
     lines = sql.split('\n');
     #print "%35s"%tableName
@@ -135,7 +138,7 @@ def PraseCreateSql(sql, tableName):
         table.append(row);
     return table;
 
-
+# 写入到文件
 def writeFile(filename, table):
     f = open(filename,"w");
     for row in table:
@@ -143,7 +146,7 @@ def writeFile(filename, table):
         #print row;
     f.close();
 
-
+# 主函数
 if __name__ == "__main__":
     f = open("product_db.sql");
     data = f.read();
