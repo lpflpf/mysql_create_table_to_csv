@@ -1,13 +1,16 @@
 import os
 import re
-#############################################################
-#| Table Name | Engine | CharSet                  | Comment |
-#| Param Name | Type   | IS NULL Or Default Value | COMMENT |
-#|  ...       | ...    |  ...                     | ...     |
-#| Primary Key| id     |  TYPE                    | ...     |
-#| Key        | id     | index_name               | ...     |
-#############################################################
 
+#表最终结构，其他信息可以自行补充
+##############################################################
+#| Table Name | Engine | CharSet                  | Comment |#
+#| Param Name | Type   | IS NULL Or Default Value | COMMENT |#
+#|  ...       | ...    |  ...                     | ...     |#
+#| Primary Key| id     |  TYPE                    | ...     |#
+#| Key        | id     | index_name               | ...     |#
+##############################################################
+
+# 解析表末行的注释： COMMENT='';
 
 def praseTableComment(line):
     pattern = re.compile("COMMENT='([^']*)'");
@@ -17,6 +20,8 @@ def praseTableComment(line):
         comment.append("");
     return comment[0];
 
+# 解析其他行的注释： COMMENT '',
+
 def praseComment(line):
     pattern = re.compile("COMMENT\ '([^']*)'");
     line = line.replace(',',';');
@@ -25,6 +30,7 @@ def praseComment(line):
         comment.append("");
     return comment[0];
 
+#读取数据库引擎信息
 def praseEngine(line):
     pattern = re.compile("ENGINE=([^\ ]*)\ ");
     Engine= pattern.findall(line);
@@ -32,6 +38,7 @@ def praseEngine(line):
         Engine.append("");
     return Engine[0];
 
+#读取数据表字符集
 def praseCHARSET(line):
     pattern = re.compile("CHARSET=([^\ ]*)\ ");
     charSet= pattern.findall(line);
@@ -39,6 +46,7 @@ def praseCHARSET(line):
         charSet.append("");
     return charSet[0];
 
+#读表的信息，组成一行
 def praseTableInfo(line,tableName):
     row = list();
     row.append(tableName);
